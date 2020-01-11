@@ -1,0 +1,8 @@
+/src/test/resources/.env
+/gradlew
+/gradlew.bat
+/mailru_tests.iml
+/gradle/
+/build/
+/.idea/
+/.gradle/
