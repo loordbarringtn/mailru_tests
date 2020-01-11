@@ -12,6 +12,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MailRuTests extends TestBase {
 
+
+
+    //http://antkorwin.com/junit5/junit5_parallel_execution.html
+    //https://junit.org/junit5/docs/snapshot/user-guide/#writing-tests-parallel-execution
+
+
     @Test
     @DisplayName("Positive test")
     void positiveTest() {

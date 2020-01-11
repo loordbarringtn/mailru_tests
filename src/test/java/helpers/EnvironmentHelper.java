@@ -19,10 +19,5 @@ public class EnvironmentHelper {
         firstEmailPassword=dotenv.get("firstEmailPassword");
         secondEmailLogin=dotenv.get("secondEmailLogin");
         secondEmailPassword=dotenv.get("secondEmailPassword");
-        System.out.println(firstEmailLogin);
-        System.out.println(firstEmailPassword);
-        System.out.println(secondEmailLogin);
-        System.out.println(secondEmailPassword);
-
     }
 }
