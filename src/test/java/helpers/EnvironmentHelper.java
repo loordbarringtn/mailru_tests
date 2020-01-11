@@ -9,13 +9,6 @@ public class EnvironmentHelper {
     public static String secondEmailPassword;
 
     public static void loadEnv() {
-        //    String FirstEmailLogin = "tn123fg@mail.ru";
-//    String FirstEmailPassword ="qw_23456_mjko";
-//
-//    String SecondEmailLogin = "durak1926@mail.ru";
-//    String SecondEmailPassword ="wertyhjk_sdrtyhj";
-
-
         Dotenv dotenv = Dotenv.configure()
                 .directory("./src/test/resources/")
                 .ignoreIfMalformed()
@@ -30,8 +23,6 @@ public class EnvironmentHelper {
         System.out.println(firstEmailPassword);
         System.out.println(secondEmailLogin);
         System.out.println(secondEmailPassword);
-
-
 
     }
 }
