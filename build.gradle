@@ -41,3 +41,7 @@ task mailtests(type: Test) {
         includeTags("mailtests")
     }
 }
+
+test {
+    useJUnitPlatform()
+}
