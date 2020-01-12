@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.LoginPage;
+import pages.SentLettersPage;
 
 import static helpers.EnvironmentHelper.*;
 import static java.lang.Thread.sleep;
@@ -18,34 +19,35 @@ public class MailRuTests extends TestBase  {
     @Test
     public void authorizationTest() {
         LoginPage loginPage = new LoginPage();
-
         driver.get(baseUrl);
 
-        loginPage.typeLogin(driver, firstEmailLogin);        // driver.findElement(By.id("mailbox:login")).sendKeys(firstEmailLogin);
-        loginPage.clickSubmit(driver); // driver.findElement(By.id("mailbox:submit")).click();
-        loginPage.typePassword(driver,firstEmailPassword); //  driver.findElement(By.id("mailbox:password")).sendKeys(firstEmailPassword);
+        loginPage.typeLogin(driver, firstEmailLogin);
+        loginPage.clickSubmit(driver);
+        loginPage.typePassword(driver,firstEmailPassword);
         loginPage.clickSubmit(driver);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("octopus-loader")));
-
         String thisEmail = driver.findElement(By.id("PH_user-email")).getText();
         assertEquals(thisEmail, firstEmailLogin, "should be logged in");
     }
 
     @Test
     public void checkEmailSent() throws InterruptedException {
+        LoginPage loginPage = new LoginPage();
+        SentLettersPage sentLettersPage = new SentLettersPage();
         String subject = getRandomString(15);
-
+        String emailText = getRandomString(50);
         driver.get(baseUrl);
-        driver.findElement(By.id("mailbox:login")).sendKeys(firstEmailLogin);
-        driver.findElement(By.id("mailbox:submit")).click();
-        driver.findElement(By.id("mailbox:password")).sendKeys(firstEmailPassword);
-        driver.findElement(By.id("mailbox:submit")).click();
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("octopus-loader")));
 
-        driver.findElement(By.xpath("//span[@class='compose-button__txt']")).click();
-        driver.findElement(By.xpath("//div[@data-type='to']//input")).sendKeys(secondEmailLogin);
-        driver.findElement(By.xpath("//input[@name='Subject']")).sendKeys(subject);
-        driver.findElement(By.xpath("//div[@class='cke_widget_editable']/div")).sendKeys("Привет");
+        loginPage.typeLogin(driver, firstEmailLogin);
+        loginPage.clickSubmit(driver);
+        loginPage.typePassword(driver,firstEmailPassword);
+        loginPage.clickSubmit(driver);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("octopus-loader")));
+        sentLettersPage.composeButtonClick(driver);
+        sentLettersPage.recepientAddressFill(driver,secondEmailLogin);
+        sentLettersPage.subjectFill(driver,subject);
+        sentLettersPage.textFieldFill(driver,emailText);
+
         driver.findElement(By.xpath("//span[text()='Отправить']")).click();
         driver.findElement(By.xpath("//span[@title='Закрыть']")).click();
         driver.findElement(By.xpath("//a[@href='/sent/']")).click();
