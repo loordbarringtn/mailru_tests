@@ -47,8 +47,8 @@ public class MailRuTests extends TestBase  {
         sentLettersPage.recepientAddressFill(driver,secondEmailLogin);
         sentLettersPage.subjectFill(driver,subject);
         sentLettersPage.textFieldFill(driver,emailText);
+        sentLettersPage.sendButtonClick(driver);
 
-        driver.findElement(By.xpath("//span[text()='Отправить']")).click();
         driver.findElement(By.xpath("//span[@title='Закрыть']")).click();
         driver.findElement(By.xpath("//a[@href='/sent/']")).click();
 

@@ -20,9 +20,11 @@ public class SentLettersPage {
     }
 
     public void textFieldFill (WebDriver driver, String text) {
-
         driver.findElement(By.xpath("//div[@class='cke_widget_editable']/div")).sendKeys(text);
+    }
 
+    public void sendButtonClick (WebDriver driver) {
+        driver.findElement(By.xpath("//span[text()='Отправить']")).click();
     }
 
 }
