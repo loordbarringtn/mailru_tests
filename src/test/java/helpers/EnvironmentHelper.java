@@ -12,9 +12,10 @@ public class EnvironmentHelper {
 
     public static void loadEnv() {
         Dotenv dotenv = Dotenv.configure()
-                .directory("./src/test/resources/")
-                .ignoreIfMalformed()
-                .ignoreIfMissing()
+                .directory("./src/test/resources/") //specify directory with .env file
+                .ignoreIfMalformed() //Do not throw when .env entries are malformed. Malformed entries are skipped.
+                .ignoreIfMissing() //Do not throw when .env does not exist.
+                // Dotenv will continue to retrieve environment variables that are set in the environment e.g. dotenv["HOME"]
                 .load();
 
         firstEmailLogin = dotenv.get("firstEmailLogin");
