@@ -48,44 +48,50 @@ public class MailRuTests extends TestBase  {
         sentLettersPage.subjectFill(driver,subject);
         sentLettersPage.textFieldFill(driver,emailText);
         sentLettersPage.sendButtonClick(driver);
-
-        driver.findElement(By.xpath("//span[@title='Закрыть']")).click();
-        driver.findElement(By.xpath("//a[@href='/sent/']")).click();
+        sentLettersPage.closeButtonClick(driver);
+        sentLettersPage.sendEmails(driver);
 
         WebElement element = driver.findElement(By.cssSelector(".letter-list"))
                 .findElement(By.xpath("//span[text()='" + subject + "']"));
         assertTrue(element.isDisplayed(), "letter with subject " + subject + "should be in sent letters list");
-
     }
 
     @Test
     public void sendEmailTest() throws InterruptedException { // todo refactor authorization to api+cookie
         String subject = getRandomString(15);
+        String emailText = getRandomString(50);
+        SentLettersPage sentLettersPage = new SentLettersPage();
+        LoginPage loginPage = new LoginPage();
         driver.get(baseUrl);
 
-        driver.findElement(By.id("mailbox:login")).sendKeys(firstEmailLogin);
-        driver.findElement(By.id("mailbox:submit")).click();
-        driver.findElement(By.id("mailbox:password")).sendKeys(firstEmailPassword);
-        driver.findElement(By.id("mailbox:submit")).click();
+        loginPage.typeLogin(driver, firstEmailLogin);
+        loginPage.clickSubmit(driver);
+        loginPage.typePassword(driver,firstEmailPassword);
+        loginPage.clickSubmit(driver);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("octopus-loader")));
 
         String thisEmail = driver.findElement(By.id("PH_user-email")).getText();
         assertEquals(thisEmail, firstEmailLogin, "should be logged in");
 
         // send email // todo refactor send message by api
-        driver.findElement(By.xpath("//span[@class='compose-button__txt']")).click();
-        driver.findElement(By.xpath("//div[@data-type='to']//input")).sendKeys(secondEmailLogin);
-        driver.findElement(By.xpath("//input[@name='Subject']")).sendKeys(subject);
-        driver.findElement(By.xpath("//div[@class='cke_widget_editable']/div")).sendKeys("Привет");
-        driver.findElement(By.xpath("//span[text()='Отправить']")).click();
+
+        sentLettersPage.composeButtonClick(driver);
+        sentLettersPage.recepientAddressFill(driver,secondEmailLogin);
+        sentLettersPage.subjectFill(driver,subject);
+        sentLettersPage.textFieldFill(driver,emailText);
+        sentLettersPage.sendButtonClick(driver);
+        sentLettersPage.closeButtonClick(driver);
+        sentLettersPage.sendEmails(driver);
 
         startSecondDriver();
+
         driver2.get(baseUrl);
-        driver2.findElement(By.id("mailbox:login")).sendKeys(secondEmailLogin);
-        driver2.findElement(By.id("mailbox:submit")).click();
+
+        loginPage.typeLogin(driver2, secondEmailLogin);
+        loginPage.clickSubmit(driver2);
         wait2.until(ExpectedConditions.visibilityOfElementLocated(By.id("mailbox:password")));
-        driver2.findElement(By.id("mailbox:password")).sendKeys(secondEmailPassword);
-        driver2.findElement(By.id("mailbox:submit")).click();
+        loginPage.typePassword(driver2,secondEmailPassword);
+        loginPage.clickSubmit(driver2);
         wait2.until(ExpectedConditions.invisibilityOfElementLocated(By.id("octopus-loader")));
 
         String thisSecondEmail = driver2.findElement(By.id("PH_user-email")).getText();

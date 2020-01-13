@@ -27,4 +27,17 @@ public class SentLettersPage {
         driver.findElement(By.xpath("//span[text()='Отправить']")).click();
     }
 
+    public void closeButtonClick (WebDriver driver) {
+        driver.findElement(By.xpath("//span[@title='Закрыть']")).click();
+    }
+
+    public void sendEmails (WebDriver driver) {
+        driver.findElement(By.xpath("//a[@href='/sent/']")).click();
+    }
+
+
+
+
+
+
 }
