@@ -63,11 +63,9 @@ public class TestBase {
                 driver2 = new FirefoxDriver();
         }
         wait2 = new WebDriverWait(driver2, 20);
-
     }
 
     public void closeSecondDriver() {
         driver2.quit();
     }
-
 }

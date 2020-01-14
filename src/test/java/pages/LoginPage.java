@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import tests.TestBase;
 
 public class LoginPage {
@@ -19,4 +20,11 @@ public class LoginPage {
         driver.findElement(By.id("mailbox:password")).sendKeys(password);
     }
 
+    public void verifyLoadingHidden(WebDriver driver) {
+        new WebDriverWait(driver, 20)
+                .until(ExpectedConditions.invisibilityOfElementLocated(
+                        By.id("octopus-loader")));
+
+
+    }
 }
