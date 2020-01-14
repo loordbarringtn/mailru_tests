@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import tests.TestBase;
@@ -24,7 +25,10 @@ public class LoginPage {
         new WebDriverWait(driver, 20)
                 .until(ExpectedConditions.invisibilityOfElementLocated(
                         By.id("octopus-loader")));
-
-
     }
+
+    public void waitForPasswordVisibility (WebDriver driver) {
+        new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(By.id("mailbox:password")));
+    }
+
 }

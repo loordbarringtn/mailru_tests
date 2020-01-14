@@ -92,9 +92,7 @@ public class MailRuTests extends TestBase  {
 
         loginPage.typeLogin(driver2, secondEmailLogin);
         loginPage.clickSubmit(driver2);
-
-        wait2.until(ExpectedConditions.visibilityOfElementLocated(By.id("mailbox:password")));
-
+        loginPage.waitForPasswordVisibility(driver2);
         loginPage.typePassword(driver2,secondEmailPassword);
         loginPage.clickSubmit(driver2);
         loginPage.verifyLoadingHidden(driver2);
